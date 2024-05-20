@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Форма с отправкой в AmoCRM</title>
+</head>
+<body>
+    <form id= "contact-form" action="submit.php" method="post">
+        <input type="text" name="name" placeholder="Имя" required><br>
+        <input type="email" name="email" placeholder="Email" required><br>
+        <input type="tel" name="phone" placeholder="Телефон" required><br>
+        <input type="number" name="price" placeholder="Цена" required><br>
+        <input type="hidden" name="time" id="time" value=""><br>
+        <input type="submit" value="Отправить">
+    </form>
+
+    <p>Вы находитесь на сайте:</p>
+        <div id="timeSpent">0 секунд</div>
+
+        <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          let timeSpentElement = document.getElementById("timeSpent");
+          let startTime = new Date();
+
+          window.timeSpent = 0;
+          window.time = 0;
+
+          function updateTime() {
+              let currentTime = new Date();
+              timeSpent = Math.floor((currentTime - startTime) / 1000);
+
+              let hours = Math.floor(timeSpent / 3600);
+              timeSpent %= 3600;
+              let minutes = Math.floor(timeSpent / 60);
+              let seconds = timeSpent % 60;
+
+              hours = String(hours).padStart(2, "0");
+              minutes = String(minutes).padStart(2, "0");
+              seconds = String(seconds).padStart(2, "0");
+
+              timeSpentElement.textContent = `${hours}:${minutes}:${seconds}`;
+          }
+
+          setInterval(updateTime, 1000);
+      });
+
+      function timeS() {
+    if (window.timeSpent >= 30) {
+        console.log("Вы провели на сайте более 30 сек");
+        window.time = 1;
+    } else {
+        console.log("Вы провели на сайте менее 30 сек");
+        window.time = 0;
+    };
+
+    document.getElementById('time').value = window.time;
+
+    console.log(window.timeSpent);
+    console.log(window.time);
+};
+      setInterval(timeS, 3000);
+
+    document.addEventListener('DOMContentLoaded', (event) => {
+    let timeG = window.time;
+    document.getElementById('time').value = timeG;
+});
+      </script>
+
+</body>
+</html>
